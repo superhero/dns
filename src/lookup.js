@@ -43,17 +43,17 @@ export default (question) => new Promise((resolve, reject) =>
         const error = new Error(`Failed to parse the response for "${question.name}" from the docker unix socket`)
         error.code  = 'E_DNS_LOOKUP_PARSE_RESPONSE'
         error.cause = reason
-        return reject(err)
+        request.destroy(error)
       }
     })
     result.on('error', (reason) =>
     {
+      request.destroy()
+
       const error = new Error(`Failed to lookup the ip for "${question.name}" using the docker unix socket`)
       error.code  = 'E_DNS_LOOKUP_UNIX_SOCKET'
       error.cause = reason
       reject(error)
-
-      request.destroy()
     })
   })
 
