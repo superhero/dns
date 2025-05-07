@@ -21,7 +21,7 @@ export default (question) => new Promise((resolve, reject) =>
     {
       const error = new Error(`Failed to lookup the ip for "${question.name}" using the docker unix socket`)
       error.code  = 'E_DNS_LOOKUP_UNIX_SOCKET_' + result.statusCode
-      error.cause = `Docker API: ${result.statusMessage} [${result.statusCode}] ${options.path}`
+      error.cause = `Docker API: ${result.statusMessage} [${result.statusCode}] ${decodeURIComponent(options.path)}`
       return request.destroy(error)
     }
 
@@ -35,8 +35,8 @@ export default (question) => new Promise((resolve, reject) =>
         validateTasks(tasks)
         const addresses = extractAddresses(tasks)
         validateAddresses(addresses)
-        resolve({ question, addresses })
         console.log(`✔ ${question.name} → ${disjunction.format(addresses)}`)
+        resolve({ question, addresses })
       }
       catch (reason)
       {
