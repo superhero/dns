@@ -1,8 +1,6 @@
 import packet from 'dns-packet'
 import lookup from './lookup.js'
-
-import dns  from 'dns'
-import { console } from 'inspector'
+import dns    from 'dns'
 
 async function fallback(question, error)
 {
@@ -10,7 +8,7 @@ async function fallback(question, error)
   console.error(error)
   console.error('falling back to OS DNS resolver')
 
-  await new Promise((resolve, reject) => dns.lookup(question.name, /* { all:true } */ (reason, address, family) => 
+  return await new Promise((resolve, reject) => dns.lookup(question.name, /* { all:true }, */ (reason, address, family) => 
   {
     if(reason)
     {
@@ -21,7 +19,7 @@ async function fallback(question, error)
     }
     else
     {
-      console.log(`✔ ${question.name} → ${address} → usinfg the OS fallback`)
+      console.log(`✔ ${question.name} → ${address} → using the OS fallback`)
       resolve({ question, addresses:[address] })
     }
   }))
