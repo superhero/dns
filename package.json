@@ -1,0 +1,13 @@
+{
+  "name": "@superhero/dns",
+  "description": "A DNS droplet intended for docker swarm",
+  "repository": "https://github.com/superhero/dns",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "start": "node src/bind.js"
+  },
+  "dependencies": {
+    "dns-packet": "5.6.1"
+  }
+}
