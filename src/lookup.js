@@ -7,7 +7,7 @@ const
 export default (question) => new Promise((resolve, reject) =>
 {
   const 
-    filters = { 'service': { [question.name]:true }, 'desired-state': { "running":true } },
+    filters = { 'service': { [question.name.split('.')[0]]:true }, 'desired-state': { "running":true } },
     options =
     {
       socketPath : SOCKET,
