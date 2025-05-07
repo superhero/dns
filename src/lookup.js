@@ -21,7 +21,7 @@ export default (question) => new Promise((resolve, reject) =>
     {
       const error = new Error(`Failed to lookup the ip for "${question.name}" using the docker unix socket`)
       error.code  = 'E_DNS_LOOKUP_UNIX_SOCKET_' + result.statusCode
-      error.cause = `Docker API: ${result.statusCode} ${result.statusMessage}`
+      error.cause = `Docker API: ${result.statusMessage} [${result.statusCode}] ${options.path}`
       return request.destroy(error)
     }
 
